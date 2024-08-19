@@ -32,9 +32,9 @@
 
 - [ ] 댓글 CRUD
   - [ ] **주민**
-    - [ ] 본인이 작성한 댓글에 대한 CRUD 기능 제공.
+    - [ ] 본인이 작성한 댓글에 대한 CRUD 기능 제공
   - [ ] **관리자**
-    - [ ] 모든 댓글에 대한 CRUD 권한.
+    - [ ] 모든 댓글에 대한 CRUD 권한
        
 ![무제](https://github.com/user-attachments/assets/82932df2-0409-4c14-bd79-f13f575b72f0)
 
