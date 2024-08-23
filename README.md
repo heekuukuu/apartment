@@ -36,7 +36,8 @@
   - [ ] **관리자**
     - [ ] 모든 댓글에 대한 CRUD 권한
        
-![무제](https://github.com/user-attachments/assets/82932df2-0409-4c14-bd79-f13f575b72f0)
+
+![무제](https://github.com/user-attachments/assets/f3023172-4919-439d-bc8a-818a9b10df97)
 
 
         
