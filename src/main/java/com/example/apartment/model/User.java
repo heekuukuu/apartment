@@ -5,9 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.time.LocalDateTime;
+
+
+
 
 @Entity
 @Data
@@ -29,7 +33,7 @@ public class User {
     private String password; // 로그인용 비밀번호
 
     @Column(nullable = false, length = 50)
-    private String email;
+    private String email;  //로그인용 이메일
 
 
     @Enumerated(EnumType.STRING)
@@ -39,6 +43,14 @@ public class User {
     private LoginType loginType;
 
 
-    private Timestamp created_date;
+
+    @CreationTimestamp
+    private LocalDateTime created_date;
+
+
+    // 아파트와의 연관관계 설정
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "apartment_id")
+    private Apartment apartment; // 소속 아파트 정보
 
 }
