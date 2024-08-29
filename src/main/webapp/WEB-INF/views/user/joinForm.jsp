@@ -5,7 +5,7 @@
    <form>
    <div class="form-group">
        <label for="username">User Name</label>
-       <input type="text" class="form-control" placeholder="Enter username" id="username"
+       <input type="username" class="form-control" placeholder="Enter username" id="username"
        aria-describedby="resultUsername">
        <p id="resultUsername">
           Must be length is more than 4
@@ -28,9 +28,9 @@
             Must be (your email id)@(your email domain)
             </p>
         </div>
-     </form>
-       <button id="btn-save" class="btn btn-primary">Sign Up</button>
 
+       <button id="btn-save" class="btn btn-primary">Sign Up</button>
+ </form>
 </div>
 
 <script src="/js/user.js"></script>
