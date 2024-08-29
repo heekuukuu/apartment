@@ -14,14 +14,14 @@ spring:
       suffix: .jsp
 
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/bord;MODE=MySQL
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/apartment
     username: root
     password:
 
     jpa:
       hibernate:
-        ddl-auto: create
+        ddl-auto: update
         naming:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false

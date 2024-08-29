@@ -28,7 +28,7 @@ public class UserApiController {
 
 
     @PostMapping("/auth/joinProc")
-    public ResponseDto<Boolean> save(@RequestParam User user) {
+    public ResponseDto<Boolean> save(@RequestBody User user) {
         userService.signUp(user);
         return new ResponseDto<>(HttpStatus.OK, true);
     }

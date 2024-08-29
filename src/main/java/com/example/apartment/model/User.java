@@ -43,14 +43,13 @@ public class User {
     private LoginType loginType;
 
 
-
     @CreationTimestamp
+    @Column(name = "CREATED_DATE", updatable = false)
     private LocalDateTime created_date;
 
 
-    // 아파트와의 연관관계 설정
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "apartment_id")
-    private Apartment apartment; // 소속 아파트 정보
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "apartment_id")
+//    private Apartment apartment; // 소속 아파트 정보
 
 }

@@ -15,14 +15,16 @@
 
 
 </head>
+
+ <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.jss"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
- <body>
 
-  <nav class="navbar" navbar-expand-md bg-dark navbar-dark>
+
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
        <a class="navbar-brand" href="/"> Home</a>
        <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
           <span class="navbar-toggler-icon"></span>
@@ -56,8 +58,13 @@
       </c:otherwise>
       </c:choose>
       </div>
+
       </nav>
       <br/>
+      <div class="jumbotron text-center" style="margin-bottom:0">
+                     <p>Create By heekuu</p>
+                     <p>&#9992; Email: ja04261@naver.com</p>
+                 </div>
       </body>
 
 </html>
