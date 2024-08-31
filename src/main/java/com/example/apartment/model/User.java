@@ -11,8 +11,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
-
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -44,7 +42,6 @@ public class User {
 
 
     @CreationTimestamp
-    @Column(name = "CREATED_DATE", updatable = false)
     private LocalDateTime created_date;
 
 

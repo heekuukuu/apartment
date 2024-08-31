@@ -14,8 +14,8 @@ spring:
       suffix: .jsp
 
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:apartment
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/apartment?useSSL=false&serverTimezone=UTC
     username: root
     password:
 
@@ -28,7 +28,7 @@ spring:
       show-sql: true
       properties:
         hibernate.format-sql: true
-      database-platform: org.hibernate.dialect.MySQL5Dialect
+      database-platform: org.hibernate.dialect.MySQL8Dialect
 
   jackson:
     serialization:

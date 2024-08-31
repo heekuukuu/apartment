@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             auth.userDetailsService(principalDetailService).passwordEncoder(bCryptPasswordEncoder());
         }
 
+
         @Override
         protected void configure (HttpSecurity http) throws Exception {
             http.headers().frameOptions().sameOrigin();
@@ -70,7 +71,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .userDetailsService(principalDetailService);
 
 
-        }
+        }}
 
 
-}

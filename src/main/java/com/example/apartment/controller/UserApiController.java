@@ -45,8 +45,9 @@ public class UserApiController {
         return new ResponseDto<>(HttpStatus.OK, true);
     }
 
+
     @GetMapping("/auth/username/{userName}")
-    public ResponseDto<Boolean> checkUserName(@PathVariable String userName) {
+   public ResponseDto<Boolean> checkUserName(@PathVariable String userName) {
         ResponseDto<Boolean> response = new ResponseDto<>(HttpStatus.OK, true);
         User selectedUser = userService.findUser(userName);
         if (selectedUser.getUsername() != null) {

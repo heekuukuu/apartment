@@ -8,9 +8,8 @@
        <input type="hidden" id="id" value="${principal.user.id}">
        <div class="form-group">
                 <label for="username">User Name</label>
-                <input type="username" value="${principal.user.name}" class="form-control"
-                 placeholder="Enter username"
-                 id="username" readonly>
+                <input type="username" value="${principal.user.username}" class="form-control"
+                 placeholder="Enter username" id="username" readonly>
              </div>
 
                <c:if test="${principal.user.loginType eq 'GENERAL'}">
@@ -26,13 +25,13 @@
 
                  <div class="form-group">
                      <label for="email">Email</label>
-                     <input type="email" value="${principal.user.email}" class="Enter email" id="email"
+                     <input type="email" value="${principal.user.email}" class="form-control" id="email"
                         aria-describedby="resultEmail">
                    <p id="resultEmail">
                          Must be (your email id)@(your email domain)
                    </p>
                    </div>
-                  <c:if>
+                  </c:if>
 
                 </form>
                 <button id="btn-update" class="btn btn-primary">Update</button>

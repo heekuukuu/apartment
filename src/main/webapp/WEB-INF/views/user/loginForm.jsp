@@ -16,6 +16,7 @@
         <c:if test="${not empty error}">
 
         <span>
+
          <p id="valid" class="alert alert-danger">
              ${exception}
               </p>

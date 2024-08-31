@@ -40,7 +40,8 @@ public class UserService {
     @Transactional
     public void updateUserInfo(User user) {
         long id = user.getId();
-        User currUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(("failed to load User Info : cannot find User id")));
+        User currUser = userRepository.findById(id).orElseThrow(()
+                -> new IllegalArgumentException(("failed to load User Info : cannot find User id")));
 
 
         //Validates

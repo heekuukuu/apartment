@@ -9,13 +9,14 @@ let index = {
     },
 
     save: function () {
+
         let data = {
             username: $("#username").val(),
             password: $("#password").val(),
             email: $("#email").val()
-        };
+        }
 
-        if (checkUsername && validatePassword && validateEmail()) {
+        if (checkUsername && validatePassword() && validateEmail()) {
             $.ajax({
                 type: "POST",
                 url: "/auth/joinProc",
@@ -32,7 +33,7 @@ let index = {
                 alert(JSON.stringify(error));
             });
         } else {
-            alert("Please Check ID and Password or Email")
+            alert("Please Check ID and Password or Email");
         }
     },
        update: function () {
@@ -42,7 +43,7 @@ let index = {
             password: $("#password").val(),
             email: $("#email").val()
         }
-       if(validatePassword()) {
+       if(validatePassword() && validatePassword()) {
           $.ajax({
              type: "PUT",
               url: "/user",
@@ -50,32 +51,38 @@ let index = {
                contentType: "application/json; charset=utf-8",
                }).done(function (resp) {
                 alert("Success Update User Info");
-                  location.href = "/";
+                 
                 }).fail(function (error) {
-                  alert(JSON.stringify(error))
+                  alert(JSON.stringify(error));
+                   console.error('Error:', error);
                });
                } else {
-                   alert("Please Check Password")
+                   alert("Please Check Password and email");
                    }
     }
 }
 
-let checkUsername;
-function validateUsername () {
+ let checkUsername;
+ function validateUsername () {
     const $resultUsername = $('#resultUsername');
     const usernameValue = $('#username').val();
     $resultUsername.text('');
-    let checkedLength = (usernameValue.length >= 4) ? true : false;
+
+    let checkedLength = usernameValue.length >= 4 ? true : false;
     let checkDuplication = false;
-    $.ajax({
-        type: 'GET',
-        url: '/auth/username/' + usernameValue,
+     $.ajax({
+        type: "GET",
+        url: "/auth/username/" +usernameValue,
         async: false,
-        contentType: 'application/json; charset=utf-8',
+        contentType: "application/json; charset=utf-8",
     }).done(function (resp) {
         checkDuplication = resp.data;
+//    });
+}).fail(function (error) {
+        console.error('Error checking username:', error);
+        $resultUsername.text('Error validating username');
+        $resultUsername.css('color', 'red');
     });
-
 
     checkUsername = checkDuplication && checkedLength;
     if (checkUsername) {
