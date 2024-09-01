@@ -36,14 +36,14 @@ let index = {
             alert("Please Check ID and Password or Email");
         }
     },
-       update: function () {
+   update: function () {
          let data = {
             id: $("#id").val(),
             username: $("#username").val(),
             password: $("#password").val(),
             email: $("#email").val()
         }
-       if(validatePassword() && validatePassword()) {
+       if(validatePassword() && validateEmail()) {
           $.ajax({
              type: "PUT",
               url: "/user",
@@ -51,7 +51,7 @@ let index = {
                contentType: "application/json; charset=utf-8",
                }).done(function (resp) {
                 alert("Success Update User Info");
-                 
+
                 }).fail(function (error) {
                   alert(JSON.stringify(error));
                    console.error('Error:', error);

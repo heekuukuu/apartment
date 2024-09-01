@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="jumbotron text-center" style="margin-bottom:0">
+        <p>apartment community site</p>
         <p>Create By heekuu</p>
         <p>&#9992; Email: ja04261@naver.com</p>
     </div>
