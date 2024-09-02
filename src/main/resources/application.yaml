@@ -7,13 +7,17 @@ server:
        enabled: true
        force: true
 
+
 spring:
   mvc:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+    static-path-pattern: /**
+    media-types:
+      js: text/javascript
   pathmatch:
-      matching-strategy: ant_path_matcher
+    matching-strategy: ant_path_matcher
 
   datasource:
     driver-class-name:  com.mysql.cj.jdbc.Driver

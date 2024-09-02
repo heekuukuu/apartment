@@ -1,5 +1,5 @@
   let index = {
-     init: function(){
+     init: function() {
         $("#btn-save").on("click",() => {
          this.save();
          });
@@ -11,18 +11,17 @@
 
 
          save: function() {
-         let data = {
+          let data = {
                title: $("#title").val(),
                category: $("#category").val(),
-               content: $("#content"). val(),
-               };
+               content: $("#content").val(),
+               }
              $.ajax({
                  type:"POST",
                  url: "/api/board",
                  data: JSON.stringify(data),
                  contentType: "application/json; charset=utf-8",
-                 })
-                 .done(function(resp) {
+                 }).done(function(resp) {
                    alert("Success Save Point");
                    location.href = "/";
                     }).fail(function(error){
@@ -36,7 +35,7 @@
                    let data = {
                        title: $("#title").val(),
                         category: $("#category").val(),
-                        content: $("content").val(),
+                        content: $("#content").val(),
                         };
 
                    $.ajax({
@@ -49,7 +48,7 @@
                            location.href ="/";
                            }).fail(function(error) {
                               alert("Failed Update Post");
-                           })
+                           });
                          },
 
                  deleteById: function(boardId) {

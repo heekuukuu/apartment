@@ -56,55 +56,11 @@
     <br/>
 
     <!-- 메인 콘텐츠 -->
-    <div class="container">
-        <!-- 게시물 리스트를 보여주는 반복문 시작 -->
-        <c:forEach var="board" items="${boards.content}">
-            <div class="card m-2">
-                <div class="card-body">
-                    <h4 class="card-title">${board.title}</h4>
-                    <a href="/board/${board.id}" class="btn btn-primary">Detail</a>
-                </div>
-            </div>
-        </c:forEach>
-        <!-- 게시물 리스트 반복문 끝 -->
-
-        <!-- 페이지 네비게이션 바 -->
-        <div class="pagination justify-content-center">
-            <ul class="pagination">
-                <c:choose>
-                    <c:when test="${boards.first}">
-                        <li class="page-item disabled"><a class="page-link" href="?page=${boards.number-1}">Previous</a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="page-item"><a class="page-link" href="?page=${boards.number-1}">Previous</a></li>
-                    </c:otherwise>
-                </c:choose>
-
-                <!-- 페이지 번호 표시 -->
-                <c:forEach var="pageNum" begin="0" end="${boards.totalPages - 1}">
-                    <li class="page-item ${boards.number == pageNum ? 'active' : ''}">
-                        <a class="page-link" href="?page=${pageNum}">${pageNum + 1}</a>
-                    </li>
-                </c:forEach>
-
-                <c:choose>
-                    <c:when test="${boards.last}">
-                        <li class="page-item disabled"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="page-item"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
-        </div>
-        <!-- 페이지 네비게이션 바 끝 -->
-    </div>
-
-    <!-- 하단 콘텐츠 -->
     <div class="jumbotron text-center" style="margin-bottom:0">
         <p>apartment community site</p>
         <p>Create By heekuu : 오류사항이있다면 하단의 이메일로 부탁드립니다.</p>
         <p>&#9992; Email: ja04261@naver.com</p>
     </div>
 </body>
+
 </html>

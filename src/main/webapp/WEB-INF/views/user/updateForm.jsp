@@ -38,5 +38,5 @@
 
               </div>
 
-           <script src="/js/user.js"></script>
+           <script src="/user.js"></script>
             <%@ include file="../layout/footer.jsp" %>
