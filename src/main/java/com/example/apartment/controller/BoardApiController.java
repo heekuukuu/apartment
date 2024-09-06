@@ -1,6 +1,7 @@
 package com.example.apartment.controller;
 
 import com.example.apartment.config.auth.PrincipalDetail;
+import com.example.apartment.dto.CommentRequestDto;
 import com.example.apartment.dto.ResponseDto;
 import com.example.apartment.model.Board;
 import com.example.apartment.service.BoardService;
@@ -15,6 +16,7 @@ public class BoardApiController {
 
     @Autowired
     private BoardService boardService;
+
 
     @PostMapping("/api/board")
     public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principalDetail) {
@@ -32,4 +34,18 @@ public class BoardApiController {
         boardService.updatePost(id, board);
         return new ResponseDto<>(HttpStatus.OK, 1);
     }
+
+
+    @PostMapping("/api/board/{boardid}/comment")
+    public ResponseDto<Integer> save(@RequestBody CommentRequestDto comment){
+        boardService.writeComment(comment);
+        return new ResponseDto<>(HttpStatus.OK, 1);
+    }
+
+    @DeleteMapping("/api/board/comment/{commentId}")
+       public ResponseDto<Integer>delete(@PathVariable long commentId){
+           boardService.deleteComment(commentId);
+            return new ResponseDto<>(HttpStatus.OK, 1);
+        }
+
 }

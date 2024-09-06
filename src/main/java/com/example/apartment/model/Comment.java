@@ -8,41 +8,35 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "boards")
-public class Board {
+
+
+@Table(name = "comments")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, length = 100)
-    private String title;
+     @Column(nullable = false,length = 200)
+     private String content;
 
-    @Lob
-    private String content;
+    @ManyToOne(fetch = FetchType.LAZY)// Many = board . one = user
+    @JoinColumn(name = "boardId")
+    private Board board;
 
-
-    @Column(nullable = false, length = 20)
-    private  String category;
 
     @ManyToOne(fetch = FetchType.LAZY)// Many = board . one = user
     @JoinColumn(name = "userId")
     private User user;
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @OrderBy("id desc")
-    private List<Comment> comments;
 
     @CreationTimestamp
-    private LocalDateTime created_date;
-
+    private LocalDateTime createdAt;
 
 
 }

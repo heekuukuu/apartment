@@ -48,5 +48,5 @@
   });
 </script>
 
-<script src="/board.js"></script>
+<script src="/js/board.js"></script>
 <%@ include file="../layout/footer.jsp" %> <!-- 공통 푸터 파일 포함 -->

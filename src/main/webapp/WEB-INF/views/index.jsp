@@ -81,12 +81,14 @@
                 </c:choose>
 
                 <!-- 페이지 번호 표시 -->
+                <c:if test="${boards.totalPages > 0}">
                 <c:forEach var="pageNum" begin="0" end="${boards.totalPages - 1}">
                     <li class="page-item ${boards.number == pageNum ? 'active' : ''}">
                         <a class="page-link" href="?page=${pageNum}">${pageNum + 1}</a>
                     </li>
-                </c:forEach>
 
+                </c:forEach>
+                </c:if>
                 <c:choose>
                     <c:when test="${boards.last}">
                         <li class="page-item disabled"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>
