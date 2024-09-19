@@ -4,8 +4,11 @@ package com.example.apartment.controller;
 import com.example.apartment.config.auth.PrincipalDetailService;
 import com.example.apartment.dto.ResponseDto;
 import com.example.apartment.model.User;
+import com.example.apartment.model.UserRole;
 import com.example.apartment.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -17,9 +20,12 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 public class UserApiController {
+
+    @Autowired
     private final UserService userService;
 
     private final PrincipalDetailService principalDetailService;
+    private UserRole role;
 
     public UserApiController(PrincipalDetailService principalDetailService, UserService userService) {
         this.principalDetailService = principalDetailService;
@@ -55,4 +61,12 @@ public class UserApiController {
         }
         return response;
     }
+    @PostMapping("/changeRole")
+    public ResponseEntity<String> changeRoleToAdmin(@RequestParam String email, @RequestParam String employeeNumber) {
+
+        String response = userService.changeUserRole(email, employeeNumber, role);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
 }

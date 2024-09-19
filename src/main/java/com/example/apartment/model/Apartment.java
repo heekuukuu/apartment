@@ -1,38 +1,43 @@
 package com.example.apartment.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.List;
 
-@Entity
-@Data
-@NoArgsConstructor
+
+@Getter
+@Setter
 @AllArgsConstructor
-@Builder
-@Table(name = "apartment")
+@NoArgsConstructor
+@Entity
+@Table(name = "apartments")
 public class Apartment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_apartment;  // 아파트 고유 ID
+    private Long id;
 
-    @Column(nullable = false, length = 100)
-    private String name;  // 아파트 이름
+    @Column(name = "name",nullable = false)
+    private String name; // 아파트 이름
 
-    @Column(nullable = false, length = 255)
-    private String address;  // 아파트 주소
+    @Column(nullable = false)
+    private String address;
 
-    @CreationTimestamp
-    private LocalDateTime created_date;  // 아파트 등록일
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    @UpdateTimestamp
-    private LocalDateTime modified_date;  // 아파트 수정일
 
-    private LocalDateTime removed_date;  // 아파트 삭제일 (soft delete)
+   @OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<User> users; // 여러 유저가 한 아파트에 속할 수 있음
+
+
+
 }
+
+
+
+
+

@@ -7,12 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-
 public class CommentRequestDto {
 
     private String content;
     private long userId;
     private long boardId;
+
 
 }

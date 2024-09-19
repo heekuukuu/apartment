@@ -43,13 +43,27 @@
                             <a class="nav-link" href="/board/saveForm">Write</a>
                         </li>
                         <li class="nav-item">
+                          <a class="nav-link" href="/apartment/apartmentSearch">apartment Search</a>
+                           </li>
+                             <sec:authorize access="isAuthenticated()">
+                            <li class="nav-item">
+                             <a class="nav-link" href="/apartments/myApartment">role</a>
+                          </li>
+                          </sec:authorize>
+                        <li class="nav-item">
                             <a class="nav-link" href="/auth/updateForm">Info</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">Sign Out</a>
+                             </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="/user/employeeNumberCheck">권한 변경</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="/user/profile">내 정보 보기</a>
                         </li>
                     </ul>
-                </c:otherwise>
+           </c:otherwise>
             </c:choose>
         </div>
     </nav>

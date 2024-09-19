@@ -26,7 +26,7 @@
                  <div class="form-group">
                      <label for="email">Email</label>
                      <input type="email" value="${principal.user.email}" class="form-control" id="email"
-                        aria-describedby="resultEmail">
+                        aria-describedby="resultEmail" readonly>
                    <p id="resultEmail">
                          Must be (your email id)@(your email domain)
                    </p>

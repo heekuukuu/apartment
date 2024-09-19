@@ -6,10 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
-
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Builder
 
 public class ResponseDto<T> {

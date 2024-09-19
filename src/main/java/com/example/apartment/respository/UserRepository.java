@@ -12,7 +12,11 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
     Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
+    // 이메일이 존재하는지 확인하는 메소드 추가
+    boolean existsByEmail(String email);
 
-
+    void deleteByEmail(String email);
 }
