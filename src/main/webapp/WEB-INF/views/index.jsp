@@ -42,12 +42,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/board/saveForm">Write</a>
                         </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="/apartment/apartmentSearch">apartment Search</a>
-                           </li>
+
                              <sec:authorize access="isAuthenticated()">
                             <li class="nav-item">
-                             <a class="nav-link" href="/apartments/myApartment">role</a>
+                             <a class="nav-link" href="/apartment/apartmentSearch">apartment Search</a>
                           </li>
                           </sec:authorize>
                         <li class="nav-item">

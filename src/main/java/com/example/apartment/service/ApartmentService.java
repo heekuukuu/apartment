@@ -58,9 +58,7 @@ public class ApartmentService {
         return null; // 로그인되지 않은 경우
     }
 
-
     @Transactional
-// 아파트 저장 (ApartmentRequest 사용)
     public boolean saveApartment(ApartmentRequest request) {
         try {
             // 로그인된 사용자의 이메일 가져오기
@@ -69,22 +67,21 @@ public class ApartmentService {
                 throw new RuntimeException("로그인된 사용자 정보를 찾을 수 없습니다.");
             }
 
-            // 중복된 이메일과 주소를 확인
-            Optional<Apartment> existingApartment = apartmentRepository.findByAddress(request.getAddress());
+            // 이메일 중복 확인
+            Optional<Apartment> existingApartment = apartmentRepository.findByEmail(email);
+
             if (existingApartment.isPresent()) {
-                // 기존 아파트 수정
+                // 중복된 아파트가 존재하면 덮어쓰기
                 Apartment apartmentToUpdate = existingApartment.get();
-                apartmentToUpdate.setName(request.getApartmentName()); // 이름 업데이트
+                apartmentToUpdate.setName(request.getApartmentName()); // 아파트 이름 업데이트
                 apartmentToUpdate.setEmail(email); // 이메일 업데이트
-                // 다른 필요한 필드도 업데이트...
                 apartmentRepository.save(apartmentToUpdate);
             } else {
-                // 새로운 아파트 생성 및 저장
+                // 새로운 아파트 생성
                 Apartment newApartment = new Apartment();
                 newApartment.setName(request.getApartmentName());
                 newApartment.setAddress(request.getAddress());
                 newApartment.setEmail(email);  // 로그인된 사용자의 이메일 저장
-
                 apartmentRepository.save(newApartment);
             }
             return true;
@@ -93,13 +90,6 @@ public class ApartmentService {
             return false;
         }
     }
-
-//    @Override
-//    public Apartment getApartmentById(Long id) {
-//        // ID로 아파트 정보 조회
-//        return apartmentRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("아파트를 찾을 수 없습니다. ID: " + id));
-//    }
 
     // 현재 로그인된 사용자의 아파트 정보를 가져오는 메서드
     public Apartment getMyApartment() {

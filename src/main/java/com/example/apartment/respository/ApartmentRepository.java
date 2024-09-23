@@ -12,7 +12,7 @@ public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
 
    boolean existsByAddress(String address);
     // 주소로 아파트를 찾는 메서드 정의
-    Optional<Apartment> findByAddress(String address);
 
+    Optional<Apartment> findByEmail(String email);
 
 }

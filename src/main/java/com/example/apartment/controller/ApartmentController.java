@@ -1,7 +1,6 @@
 package com.example.apartment.controller;
 
 
-import com.example.apartment.model.Apartment;
 import com.example.apartment.respository.ApartmentRepository;
 import com.example.apartment.service.ApartmentService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,13 +25,6 @@ public class ApartmentController {
         return "apartment/apartmentSearch"; // 검색 페이지 반환
         }
 
-        @GetMapping("/apartments/myApartment")
-        public String getMyApartment(Model model) {
-            log.info("Fetching apartment details for the user");
-            Apartment apartment = apartmentService.getMyApartment();
-            model.addAttribute("apartment", apartment);
-            return "apartments/myApartment";
-        }
     }
 
 
