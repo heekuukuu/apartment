@@ -37,5 +37,6 @@ out/
 .vscode/
 
 # .gitignore
+src/main/resources/application-dev.yaml
+
 src/main/resources/application_oauth2.yaml
-src/main/resources/application_aouth2.yaml

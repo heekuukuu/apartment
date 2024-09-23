@@ -77,4 +77,9 @@ public class BoardService {
     public void deleteComment(long commentId) {
         commentRepository.deleteById(commentId);
     }
+
+    @Transactional(readOnly = true)
+    public Page<Board> searchPosts(String keyword, Pageable pageable) {
+        return boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, pageable);
+    }
 }

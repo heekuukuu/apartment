@@ -54,11 +54,11 @@ public class UserController {
     @Value("${kakao.api.key}")
     private String kakaoApiKey;
 
-//    @GetMapping("/apartment/apartmentSearch")
-//    public String showApartmentSearchPage(Model model) {
-//        model.addAttribute("apiKey", kakaoApiKey);
-//        return "/apartment/apartmentSearch"; // templates/apartmentSearch.html 파일을 반환
-//    }
+    @GetMapping("/apartment/apartmentSearch")
+    public String showApartmentSearchPage(Model model) {
+        model.addAttribute("apiKey", kakaoApiKey);
+        return "/apartment/apartmentSearch"; // templates/apartmentSearch.html 파일을 반환
+    }
 
     @PostMapping("/user/changeRole")
     public ModelAndView changeUserRole(@RequestParam String email,

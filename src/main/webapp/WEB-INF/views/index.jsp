@@ -68,7 +68,31 @@
         </div>
     </nav>
     <br/>
+<div class="container">
+    <!-- 검색 폼 -->
+    <form action="/board/search" method="get">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="keyword" placeholder="Search for posts" aria-label="Search" aria-describedby="button-search">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="button-search">Search</button>
+            </div>
+        </div>
+    </form>
 
+    <!-- 검색어가 있을 때만 게시물 리스트를 보여줌 -->
+    <c:if test="${not empty keyword}">
+        <h3>Search results for "${keyword}"</h3>
+         <p>Total results: ${totalCount}</p>
+
+        <c:forEach var="board" items="${boards.content}">
+            <div class="card m-2">
+                <div class="card-body">
+                    <h4 class="card-title">${board.title}</h4>
+                    <a href="/board/${board.id}" class="btn btn-primary">Detail</a>
+                </div>
+            </div>
+        </c:forEach>
+        </c:if>
     <!-- 메인 콘텐츠 -->
     <div class="container">
         <!-- 게시물 리스트를 보여주는 반복문 시작 -->

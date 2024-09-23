@@ -48,4 +48,5 @@ public class BoardApiController {
             return new ResponseDto<>(HttpStatus.OK, 1);
         }
 
+
 }
