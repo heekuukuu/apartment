@@ -61,9 +61,11 @@
   - [x] 프로필 페이지에서 "관리자로 전환" 버튼을 클릭해 관리자로 전환가능
   - [x] 관리자로 전환하기 위해서는 사원번호(6자리)를 입력하여 자격을 인증
   - [x] 인증이 완료되면, 사용자의 권한이 "ADMIN"으로 변경됨
+ 
+
+<img width="508" alt="8E386898-FA80-4A55-9ECC-79B16758ABF5" src="https://github.com/user-attachments/assets/528c187a-f7eb-43c2-94c8-de94394a9121">
 
 
-![무제](https://github.com/user-attachments/assets/f3023172-4919-439d-bc8a-818a9b10df97)
 
 
         
