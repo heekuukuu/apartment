@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# .gitignore
+src/main/resources/application-dev.yaml
+
+src/main/resources/application_oauth2.yaml
