@@ -58,7 +58,7 @@ public class SecurityConfig {
             )
         )
         .authorizeRequests(auth -> auth
-            .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**").permitAll()
+            .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**","/apartments/**").permitAll()
             .anyRequest().authenticated()
         );
 

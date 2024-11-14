@@ -6,6 +6,8 @@ import com.example.apartment.model.Apartment;
 import com.example.apartment.model.User;
 import com.example.apartment.respository.ApartmentRepository;
 import com.example.apartment.respository.UserRepository;
+import java.util.Optional;
+import javax.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,8 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.Optional;
 @Service
 @Slf4j
 public class ApartmentService {
@@ -25,12 +25,10 @@ public class ApartmentService {
     @Autowired
     private UserRepository userRepository;
 
-
-
     // 아파트 수정
     public Apartment updateApartment(Long id, Apartment apartmentDetails) {
         Apartment apartment = apartmentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Apartment not found"));
+            .orElseThrow(() -> new RuntimeException("Apartment not found"));
         apartment.setName(apartmentDetails.getName());
         apartment.setAddress(apartmentDetails.getAddress());
         return apartmentRepository.save(apartment);
@@ -40,6 +38,7 @@ public class ApartmentService {
     public void deleteApartment(Long id) {
         apartmentRepository.deleteById(id);
     }
+
     // 로그인된 사용자의 이메일 가져오기
     public String getCurrentUserEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -67,22 +66,36 @@ public class ApartmentService {
                 throw new RuntimeException("로그인된 사용자 정보를 찾을 수 없습니다.");
             }
 
-            // 이메일 중복 확인
+            // 이메일로 기존 아파트가 있는지 확인
             Optional<Apartment> existingApartment = apartmentRepository.findByEmail(email);
 
             if (existingApartment.isPresent()) {
-                // 중복된 아파트가 존재하면 덮어쓰기
+                // 이미 아파트가 있으면 덮어쓰기
                 Apartment apartmentToUpdate = existingApartment.get();
                 apartmentToUpdate.setName(request.getApartmentName()); // 아파트 이름 업데이트
-                apartmentToUpdate.setEmail(email); // 이메일 업데이트
+                apartmentToUpdate.setAddress(request.getAddress()); // 아파트 주소 업데이트
                 apartmentRepository.save(apartmentToUpdate);
+
+                // User와 Apartment 연결 설정
+                User user = apartmentToUpdate.getUser();
+                user.setApartment(apartmentToUpdate);  // 연관된 User와 Apartment 설정
+                userRepository.save(user); // User 정보 저장
             } else {
                 // 새로운 아파트 생성
                 Apartment newApartment = new Apartment();
                 newApartment.setName(request.getApartmentName());
                 newApartment.setAddress(request.getAddress());
-                newApartment.setEmail(email);  // 로그인된 사용자의 이메일 저장
-                apartmentRepository.save(newApartment);
+                newApartment.setEmail(email); // 로그인된 사용자의 이메일 설정
+
+                // 새로운 User 생성 후 아파트와 연관 설정
+                User user = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+
+                newApartment.setUser(user);  // User와 Apartment 관계 설정
+                user.setApartment(newApartment); // User에 Apartment 설정
+
+                apartmentRepository.save(newApartment); // 아파트 저장
+                userRepository.save(user); // User 저장
             }
             return true;
         } catch (Exception e) {
@@ -101,7 +114,7 @@ public class ApartmentService {
 
         log.info("Fetching apartment for user with email: {}", email);
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다: " + email));
+            .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다: " + email));
 
         Apartment apartment = user.getApartment();
         if (apartment == null) {

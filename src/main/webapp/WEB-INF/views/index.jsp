@@ -30,31 +30,31 @@
                 <c:when test="${empty principal}">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/auth/loginForm">Sign In</a>
+                            <a class="nav-link" href="/auth/loginForm">로그인</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/auth/joinForm">Sign Up</a>
+                            <a class="nav-link" href="/auth/joinForm">회원가입</a>
                         </li>
                     </ul>
                 </c:when>
                 <c:otherwise>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/board/saveForm">Write</a>
+                            <a class="nav-link" href="/board/saveForm">글쓰기</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="/apartment/apartmentSearch">apartment Search</a>
+                          <a class="nav-link" href="/apartment/apartmentSearch">아파트 검색</a>
                            </li>
                              <sec:authorize access="isAuthenticated()">
                             <li class="nav-item">
-                             <a class="nav-link" href="/apartments/myApartment">role</a>
+                             <a class="nav-link" href="/apartments/myApartment">나의 아파트</a>
                           </li>
                           </sec:authorize>
                         <li class="nav-item">
-                            <a class="nav-link" href="/auth/updateForm">Info</a>
+                            <a class="nav-link" href="/auth/updateForm">나의 정보수정</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">Sign Out</a>
+                            <a class="nav-link" href="/logout">로그아웃</a>
                              </li>
                               <li class="nav-item">
                                  <a class="nav-link" href="/user/employeeNumberCheck">권한 변경</a>
