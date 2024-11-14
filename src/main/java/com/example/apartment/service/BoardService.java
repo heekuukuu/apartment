@@ -34,9 +34,7 @@ public class BoardService {
       board.setUser(user);
       boardRepository.save(board);
   }
-  public Page<Board> getPostList(Pageable pageable){
-      return boardRepository.findAll(pageable);
-  }
+
 
 
   @Transactional(readOnly = true)
@@ -82,4 +80,10 @@ public class BoardService {
     public Page<Board> searchPosts(String keyword, Pageable pageable) {
         return boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, pageable);
     }
+  // 전체 게시글 목록 페이징 처리
+  public Page<Board> getPostList(Pageable pageable) {
+    return boardRepository.findAll(pageable);  // findAll 대신, 원하는 조건으로 검색 메서드를 호출할 수 있습니다.
+  }
+
+
 }

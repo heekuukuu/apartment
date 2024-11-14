@@ -13,16 +13,19 @@
     <div class="card">
         <div class="card-header bg-primary text-white">
             <h2 class="text-center">프로필 정보</h2>
-      <div>
-             <strong>Email:</strong> ${email}
-         </div>
-         <div>
-             <strong>Apartment:</strong> ${apartmentName}
-         </div>
-         <div>
-             <strong>Address:</strong> ${apartmentAddress}
-         </div>
-     </div>
+        </div>
+        <div class="card-body">
+            <div>
+                <strong>Email:</strong> ${email}
+            </div>
+            <c:choose>
+                <c:when test="${not empty apartmentName}">
+                    <div>
+                        <strong>Apartment:</strong> ${apartmentName}
+                    </div>
+                    <div>
+                        <strong>Address:</strong> ${apartmentAddress}
+                    </div>
                 </c:when>
                 <c:otherwise>
                     <div class="row mb-3">

@@ -1,12 +1,16 @@
 package com.example.apartment.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
-import java.util.List;
 
 
 @Getter
@@ -18,6 +22,7 @@ import java.util.List;
 public class Apartment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "apartment_id")
     private Long id;
 
     @Column(name = "name",nullable = false)
@@ -30,10 +35,8 @@ public class Apartment {
     private String email;
 
 
-   @OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<User> users; // 여러 유저가 한 아파트에 속할 수 있음
-
-
+    @OneToOne(mappedBy = "apartment")  // 'apartment' 필드를 관리하는 주 테이블은 'User'
+    private User user;  // 하나의 Apartment는 하나의 User에 속함
 
 }
 

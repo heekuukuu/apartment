@@ -1,14 +1,23 @@
 package com.example.apartment.model;
 
 
+import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
 
 
 @Entity
@@ -21,6 +30,7 @@ import java.time.LocalDateTime;
 public class User {
     @Id //Primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id; //auto_increment
 
     @Column(nullable = false, length = 100)  // 100자까지
@@ -44,10 +54,9 @@ public class User {
     private LocalDateTime created_date;
 
 
-    //@JoinColumn(name = "apartment_id")  // 외래 키로 아파트 ID를 참조
-    // 여러 유저가 하나의 아파트에 속할 수 있으므로 ManyToOne 사용
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    private Apartment apartment;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "apartment_id")  // 외래 키로 사용할 칼럼 이름
+    private Apartment apartment;  // User는 하나의 Apartment를 가짐
 
 
 }

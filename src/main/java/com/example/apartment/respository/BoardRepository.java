@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface BoardRepository extends JpaRepository<Board, Long> {
     void deleteAllByUser(User user);
     Page<Board> findByTitleContainingOrContentContaining(String title, String content, Pageable pageable);
+
+
 }

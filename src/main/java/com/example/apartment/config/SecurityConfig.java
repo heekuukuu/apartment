@@ -9,50 +9,60 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 @Configuration  // Bean 등록
 @EnableWebSecurity  // Security filter 추가
 public class SecurityConfig {
 
-    private final AuthenticationFailureHandler customFailureHandler;
-    private final PrincipalDetailService principalDetailService;
-    private final CustomOAuth2UserService customOAuth2UserService;
+  private final AuthenticationFailureHandler customFailureHandler;
+  private final PrincipalDetailService principalDetailService;
+  private final CustomOAuth2UserService customOAuth2UserService;
 
-    public SecurityConfig(AuthenticationFailureHandler customFailureHandler, PrincipalDetailService principalDetailService, CustomOAuth2UserService customOAuth2UserService) {
-        this.customFailureHandler = customFailureHandler;
-        this.principalDetailService = principalDetailService;
-        this.customOAuth2UserService = customOAuth2UserService;
-    }
+  public SecurityConfig(AuthenticationFailureHandler customFailureHandler,
+      PrincipalDetailService principalDetailService,
+      CustomOAuth2UserService customOAuth2UserService) {
+    this.customFailureHandler = customFailureHandler;
+    this.principalDetailService = principalDetailService;
+    this.customOAuth2UserService = customOAuth2UserService;
+  }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .formLogin(form -> form
-                        .loginPage("/auth/loginForm")
-                        .loginProcessingUrl("/auth/loginProc")
-                        .defaultSuccessUrl("/")
-                        .failureHandler(customFailureHandler)
-                        .permitAll()
-                )
-                .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/auth/socialLogin")
-                        .defaultSuccessUrl("/")
-                        .failureHandler(customFailureHandler)
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userService(customOAuth2UserService)
-                        )
-                )
-                .authorizeRequests(auth -> auth
-                        .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**", "/dummy/**", "/h2-console/**").permitAll()
-                        .anyRequest().authenticated()
-                );
+  @Bean
+  public StrictHttpFirewall strictHttpFirewall() {
+    StrictHttpFirewall firewall = new StrictHttpFirewall();
+    firewall.setAllowUrlEncodedSlash(true); // //을 허용하는 설정
+    return firewall;
+  }
 
-        return http.build();
-    }
-    
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http.csrf().disable()
+        .formLogin(form -> form
+            .loginPage("/auth/loginForm")
+            .loginProcessingUrl("/auth/loginProc")
+            .defaultSuccessUrl("/")
+            .failureHandler(customFailureHandler)
+            .permitAll()
+        )
+        .oauth2Login(oauth2 -> oauth2
+            .loginPage("/auth/socialLogin")
+            .defaultSuccessUrl("/")
+            .failureHandler(customFailureHandler)
+            .userInfoEndpoint(userInfo -> userInfo
+                .userService(customOAuth2UserService)
+            )
+        )
+        .authorizeRequests(auth -> auth
+            .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**").permitAll()
+            .anyRequest().authenticated()
+        );
+
+    return http.build();
+  }
+
 }

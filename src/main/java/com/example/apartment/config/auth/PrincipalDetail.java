@@ -1,14 +1,13 @@
 package com.example.apartment.config.auth;
 
 import com.example.apartment.model.User;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
 
 @Getter
 public class PrincipalDetail implements UserDetails, OAuth2User {
@@ -76,7 +75,7 @@ public class PrincipalDetail implements UserDetails, OAuth2User {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collectors = new ArrayList<>();
-        collectors.add(() -> "ROLE_" + user.getRole());
+        collectors.add(() -> String.valueOf(user.getRole()));
         return collectors;
     }
 }

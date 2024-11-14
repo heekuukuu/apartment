@@ -19,11 +19,19 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @GetMapping({"", "/"})
-   public String index(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        model.addAttribute("boards", boardService.getPostList(pageable));
-        return "index";
+  @GetMapping({"", "/"})
+  public String index(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    // 게시물이 없을 때에도 인덱스를 반환하도록 처리
+    Page<Board> boards = boardService.getPostList(pageable);
+
+    if (boards.isEmpty()) {
+      model.addAttribute("message", "현재 게시물이 없습니다.");
     }
+
+    model.addAttribute("boards", boards);
+    System.out.println("Index page accessed");
+    return "index";  // index.jsp 반환
+  }
 
     @GetMapping("/board/saveForm")
     public String saveForm() {
