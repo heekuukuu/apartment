@@ -1,6 +1,9 @@
 package com.example.apartment.model;
 
 
+import com.example.apartment.type.LoginType;
+import com.example.apartment.type.UserRole;
+import com.example.apartment.type.UserStatus;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,35 +31,44 @@ import org.hibernate.annotations.CreationTimestamp;
 @Table(name = "users")
 
 public class User {
-    @Id //Primary key
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long id; //auto_increment
 
-    @Column(nullable = false, length = 100)  // 100자까지
-    private String username; // 로그인용 사용자 ID
+  @Id //Primary key
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "user_id")
+  private Long id; //auto_increment
 
-    @Column(length = 100)
-    private String password; // 로그인용 비밀번호
+  @Column(nullable = false, length = 100)  // 100자까지
+  private String username; // 로그인용 사용자 ID
 
-    @Column(nullable = false, length = 50,unique = true)
-    private String email;  //로그인용 이메일
+  @Column(length = 100)
+  private String password; // 로그인용 비밀번호
 
-
-    @Enumerated(EnumType.STRING)
-    private UserRole role; // Enum
-
-    @Enumerated(EnumType.STRING)
-    private LoginType loginType;
+  @Column(nullable = false, length = 50, unique = true)
+  private String email;  //로그인용 이메일
 
 
-    @CreationTimestamp
-    private LocalDateTime created_date;
+  @Enumerated(EnumType.STRING)
+  private UserRole role; // Enum
+
+  @Enumerated(EnumType.STRING)
+  private LoginType loginType;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "apartment_id")  // 외래 키로 사용할 칼럼 이름
-    private Apartment apartment;  // User는 하나의 Apartment를 가짐
+  @CreationTimestamp
+  private LocalDateTime created_date;
+
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "apartment_id")  // 외래 키로 사용할 칼럼 이름
+  private Apartment apartment;  // User는 하나의 Apartment를 가짐
+
+  @OneToOne(mappedBy = "user") //
+  private Employee employee;
+
+  @Builder.Default
+  @Enumerated(EnumType.STRING) // 상태를 관리하는 Enum 필드
+  @Column(nullable = false)
+  private UserStatus status = UserStatus.ACTIVE; // 기본 상태는 ACTIVE
 
 
 }

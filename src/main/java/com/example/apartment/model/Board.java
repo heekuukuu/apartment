@@ -1,10 +1,13 @@
 package com.example.apartment.model;
 
+import com.example.apartment.type.BoardStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,32 +32,37 @@ import org.hibernate.annotations.CreationTimestamp;
 @Builder
 @Table(name = "boards")
 public class Board {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "board_id")
-    private long id;
 
-    @Column(nullable = false, length = 100)
-    private String title;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "board_id")
+  private long id;
 
-    @Lob
-    private String content;
+  @Column(nullable = false, length = 100)
+  private String title;
 
-
-    @Column(nullable = false, length = 20)
-    private  String category;
-
-    @ManyToOne(fetch = FetchType.LAZY)// Many = board . one = user
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @OrderBy("id desc")
-    private List<Comment> comments;
-
-    @CreationTimestamp
-    private LocalDateTime created_date;
+  @Lob
+  private String content;
 
 
+  @Column(nullable = false, length = 20)
+  private String category;
+
+  @ManyToOne(fetch = FetchType.LAZY)// Many = board . one = user
+  @JoinColumn(name = "user_id")
+  private User user;
+
+  @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+  @OrderBy("id desc")
+  private List<Comment> comments;
+
+  @CreationTimestamp
+  private LocalDateTime created_date;
+
+
+  // 게시글의 상태는 BoardStatus enum으로 관리
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private BoardStatus status;
 
 }

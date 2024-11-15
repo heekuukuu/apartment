@@ -52,15 +52,14 @@ public class ApartmentApiController {
   }
 
   // 아파트 수정 페이지 (JSP 페이지로 반환)
-  @GetMapping("/editApartment")
-  public String editApartment(Model model) {
-    try {
-      Apartment apartment = apartmentService.getMyApartment();
-      model.addAttribute("apartment", apartment); // 수정할 아파트 정보 전달
-      return "apartment/editApartment"; // 아파트 수정 JSP 페이지 반환
-    } catch (Exception e) {
-      model.addAttribute("error", e.getMessage());
-      return "error"; // error.jsp 페이지로 오류 전달
-    }
+//  @GetMapping("/editApartment")
+//  public String editApartment(Model model) {
+//    try {
+//      Apartment apartment = apartmentService.getMyApartment();
+//      model.addAttribute("apartment", apartment); // 수정할 아파트 정보 전달
+//      return "apartment/editApartment"; // 아파트 수정 JSP 페이지 반환
+//    } catch (Exception e) {
+//      model.addAttribute("error", e.getMessage());
+//      return "error"; // error.jsp 페이지로 오류 전달
+//    }
   }
-}

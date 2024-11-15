@@ -59,9 +59,6 @@
                               <li class="nav-item">
                                  <a class="nav-link" href="/user/employeeNumberCheck">권한 변경</a>
                                   </li>
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="/user/profile">내 정보 보기</a>
-                        </li>
                     </ul>
            </c:otherwise>
             </c:choose>

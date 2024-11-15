@@ -1,4 +1,4 @@
-package com.example.apartment.model;
+package com.example.apartment.type;
 
 public enum UserRole {
     USER,

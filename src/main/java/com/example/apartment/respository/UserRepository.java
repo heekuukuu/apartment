@@ -16,8 +16,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
     // 이메일이 존재하는지 확인하는 메소드 추가
     boolean existsByEmail(String email);
-
-    void deleteByEmail(String email);
     // 아이디체크
   boolean existsByUsername(String username);
+
+
 }
