@@ -31,11 +31,12 @@ public class PrincipalDetail implements UserDetails, OAuth2User {
     public Map<String, Object> getAttributes() {
         return attributes;
     }
-
     @Override
     public String getName() {
         return user.getUsername(); // 사용자 이름 또는 고유 식별자를 반환
     }
+
+
 
     public String getEmail() {
         return user.getEmail();

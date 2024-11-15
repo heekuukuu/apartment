@@ -37,7 +37,7 @@ public class User {
   @Column(name = "user_id")
   private Long id; //auto_increment
 
-  @Column(nullable = false, length = 100)  // 100자까지
+  @Column(nullable = false, length = 100, unique = true)  // 100자까지
   private String username; // 로그인용 사용자 ID
 
   @Column(length = 100)
