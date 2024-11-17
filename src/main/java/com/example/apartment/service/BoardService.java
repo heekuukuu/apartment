@@ -33,8 +33,12 @@ public class BoardService {
   @Autowired
   private BoardRepository boardRepository;
 
-  public BoardService(BoardRepository boardRepository) {
+  @Autowired
+  private UserService userService;
+
+  public BoardService(BoardRepository boardRepository, UserService userService) {
     this.boardRepository = boardRepository;
+    this.userService = userService;
   }
 
   @Transactional
@@ -66,15 +70,18 @@ public class BoardService {
         new IllegalArgumentException("게시글을 찾을 수 없습니다."));
 
     // 활성화된 사용자의 경우 물리적 삭제, 탈퇴된 사용자의 경우 논리적 삭제
+
     String currentUserEmail = getCurrentUserEmail();  // 현재 로그인한 사용자 이메일 조회
 
-    if (board.getUser().getEmail().equals(currentUserEmail)) {
+    if (userService.isAdmin(currentUserEmail)) {
+      // 어드민은 모든 게시글을 삭제할 수 있음
+      boardRepository.delete(board);
+    } else if (board.getUser().getEmail().equals(currentUserEmail)) {
+      // 일반 사용자는 본인 게시글만 삭제할 수 있음
       if (board.getUser().getStatus() == UserStatus.ACTIVE) {
-        // 물리적 삭제: 활성화된 사용자의 게시글을 삭제
-        boardRepository.delete(board);
+        boardRepository.delete(board);  // 물리적 삭제
       } else {
-        // 논리적 삭제: 탈퇴한 사용자의 게시글을 DELETED 상태로 변경
-        board.setStatus(BoardStatus.DELETED);
+        board.setStatus(BoardStatus.DELETED);  // 논리적 삭제
         boardRepository.save(board);
       }
     } else {
@@ -116,21 +123,18 @@ public class BoardService {
     Comment comment = commentRepository.findById(commentId).orElseThrow(() ->
         new IllegalArgumentException("댓글을 찾을 수 없습니다."));
 
-    // 활성화된 사용자의 경우 물리적 삭제, 탈퇴된 사용자의 경우 논리적 삭제
     String currentUserEmail = getCurrentUserEmail();  // 현재 로그인한 사용자 이메일 조회
-    System.out.println("현재 로그인한 이메일: " + currentUserEmail);  // 디버깅용 로그
 
-    if (comment.getUser().getEmail().equals(currentUserEmail)) {
+    if (userService.isAdmin(currentUserEmail)) {
+      // 어드민은 모든 댓글을 삭제할 수 있음
+      commentRepository.delete(comment);
+    } else if (comment.getUser().getEmail().equals(currentUserEmail)) {
+      // 일반 사용자는 본인 댓글만 삭제할 수 있음
       if (comment.getUser().getStatus() == UserStatus.ACTIVE) {
-        // 물리적 삭제: 활성화된 사용자의 댓글을 삭제
-        commentRepository.delete(comment);
-        System.out.println("댓글 삭제됨");  // 디버깅용 로그
-
+        commentRepository.delete(comment);  // 물리적 삭제
       } else {
-        // 논리적 삭제: 탈퇴한 사용자의 댓글을 DELETED 상태로 변경
-        comment.setStatus(CommentStatus.DELETED);
+        comment.setStatus(CommentStatus.DELETED);  // 논리적 삭제
         commentRepository.save(comment);
-        System.out.println("댓글 논리적 삭제됨");  // 디버깅용 로그
       }
     } else {
       throw new IllegalArgumentException("본인 댓글만 삭제할 수 있습니다.");
@@ -155,4 +159,20 @@ public class BoardService {
     return null; // 인증되지 않은 경우
   }
 
+
+  // 어드민 게시글 삭제
+  @Transactional
+  public void deletePostByAdmin(Long postId) {
+    Board board = boardRepository.findById(postId).orElseThrow(() ->
+        new IllegalArgumentException("게시글을 찾을 수 없습니다."));
+    boardRepository.delete(board);  // 게시글을 물리적으로 삭제
+  }
+
+  // 어드민 댓글 삭제
+  @Transactional
+  public void deleteCommentByAdmin(Long commentId) {
+    Comment comment = commentRepository.findById(commentId).orElseThrow(() ->
+        new IllegalArgumentException("댓글을 찾을 수 없습니다."));
+    commentRepository.delete(comment);  // 댓글을 물리적으로 삭제
+  }
 }

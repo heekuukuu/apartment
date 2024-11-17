@@ -28,4 +28,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
  void deleteAllById(Long id);
   @Transactional
   void deleteAllByUser(User user);
+
 }

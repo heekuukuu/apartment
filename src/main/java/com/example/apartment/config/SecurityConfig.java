@@ -59,6 +59,7 @@ public class SecurityConfig {
         )
         .authorizeRequests(auth -> auth
             .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**","/apartments/**").permitAll()
+            .antMatchers("/api/admin/**").hasRole("ADMIN")
             .anyRequest().authenticated()
         );
 

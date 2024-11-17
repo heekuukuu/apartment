@@ -67,8 +67,10 @@ public class User {
 
   @Builder.Default
   @Enumerated(EnumType.STRING) // 상태를 관리하는 Enum 필드
-  @Column(nullable = false)
+  @Column(nullable = false, name = "users_status")
   private UserStatus status = UserStatus.ACTIVE; // 기본 상태는 ACTIVE
 
-
+  public boolean isAdmin() {
+    return this.role == UserRole.ADMIN;
+  }
 }

@@ -206,6 +206,16 @@ public class UserService {
     user.setStatus(UserStatus.DELETED); // 상태를 'DELETED'로 변경
     userRepository.save(user); // 상태 변경 저장
   }
+
+
+  // 관리자 권한 확인
+  public boolean isAdmin(String email) {
+    User user = userRepository.findByEmail(email)
+        .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+    return user.getRole() == UserRole.ADMIN;
+  }
+
+
 }
 
 

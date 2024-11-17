@@ -51,7 +51,7 @@ public class Comment {
 
   // 댓글의 상태는 CommentStatus enum으로 관리
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
+  @Column(nullable = false,name="comment_status")
   private CommentStatus status;
 
 }

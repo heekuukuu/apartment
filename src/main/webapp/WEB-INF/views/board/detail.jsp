@@ -25,6 +25,11 @@
                 <a href="/board/${boards.id}/updateForm" class="btn btn-warning btn-sm ml-2">Modify</a>
                 <button onclick="index.deleteById(${boards.id})" class="btn btn-danger btn-sm ml-2">Delete</button>
             </c:if>
+
+            <!-- Admin Delete Button (Visible only to Admin) -->
+            <c:if test="${principal.user.role == 'ADMIN'}">
+                <button onclick="index.deleteById(${boards.id})" class="btn btn-danger btn-sm ml-2">Delete Post (Admin)</button>
+            </c:if>
         </div>
     </div>
 
@@ -58,6 +63,11 @@
                     <c:if test="${principal.user.username eq comment.user.username}">
                         <button onClick="index.deleteComment(${boards.id}, ${comment.id})" class="badge badge-danger">Remove</button>
                     </c:if>
+
+                    <!-- Admin Remove Button (Visible only to Admin) -->
+                    <c:if test="${principal.user.role == 'ADMIN'}">
+                        <button onClick="index.deleteComment(${boards.id}, ${comment.id})" class="badge badge-danger">Remove Comment (Admin)</button>
+                    </c:if>
                 </li>
             </c:forEach>
         </ul>
@@ -65,4 +75,3 @@
 </div>
 
 <script src="/js/board.js"></script>
-

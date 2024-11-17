@@ -62,7 +62,7 @@ public class Board {
 
   // 게시글의 상태는 BoardStatus enum으로 관리
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
+  @Column(nullable = false,name ="board_status")
   private BoardStatus status;
 
 }

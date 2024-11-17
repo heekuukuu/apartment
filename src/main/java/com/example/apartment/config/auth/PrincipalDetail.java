@@ -1,6 +1,7 @@
 package com.example.apartment.config.auth;
 
 import com.example.apartment.model.User;
+import com.example.apartment.type.UserRole;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -14,6 +15,7 @@ public class PrincipalDetail implements UserDetails, OAuth2User {
 
     private User user;
     private Map<String, Object> attributes; // OAuth2 사용자 정보를 저장할 필드
+    private UserRole role;
 
     // 일반 로그인용 생성자
     public PrincipalDetail(User user) {
@@ -78,5 +80,9 @@ public class PrincipalDetail implements UserDetails, OAuth2User {
         Collection<GrantedAuthority> collectors = new ArrayList<>();
         collectors.add(() -> String.valueOf(user.getRole()));
         return collectors;
+    }
+
+    public UserRole getRole() {
+        return user.getRole();
     }
 }
