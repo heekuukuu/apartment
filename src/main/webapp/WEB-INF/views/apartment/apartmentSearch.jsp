@@ -72,7 +72,7 @@
 
 
 <script async src="//dapi.kakao.com/v2/maps/sdk.js?appkey=050d8bf154a1f7a8b221f98c28a8f5af&libraries=services"></script>
-//<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=050d8bf154a1f7a8b221f98c28a8f5af&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=050d8bf154a1f7a8b221f98c28a8f5af&libraries=services"></script>
 <script>
 // 메인 페이지로 이동하는 함수
 function redirectToMain() {
