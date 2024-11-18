@@ -76,7 +76,7 @@
 <script>
 // 메인 페이지로 이동하는 함수
 function redirectToMain() {
-    window.location.href = "http://localhost:8080"; // 메인 페이지로 리다이렉트
+    window.location.href = "/";  
 }
 
 // 마커를 담을 배열입니다
