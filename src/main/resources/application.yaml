@@ -1,0 +1,36 @@
+server:
+  port: 8080
+  servlet:
+     context-path: /
+     encoding:
+       charset: UTF-8
+       enabled: true
+       force: true
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:apartment
+    username: root
+    password:
+
+    jpa:
+      hibernate:
+        ddl-auto: update
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+      show-sql: true
+      properties:
+        hibernate.format-sql: true
+      database-platform: org.hibernate.dialect.MySQL5Dialect
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
