@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  heekuu-jenkins:
+    container_name: heekuu-jenkins
+    image: jenkins/jenkins:jdk17
+    user: root
+    restart: unless-stopped
+    ports:
+      - "9080:8080" # Jenkins 웹 인터페이스
+      - "50000:50000" # 에이전트 연결
+    volumes:
+      - ~/heekuu_jenkins_home:/var/jenkins_home # Jenkins 데이터를 유지하기 위한 볼륨
+      - /var/run/docker.sock:/var/run/docker.sock # Docker 실행 권한을 위한 소켓 공유
